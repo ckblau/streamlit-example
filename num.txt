@@ -1,0 +1,68 @@
+Lot Frontage
+Linear feet of street connected to property
+
+Lot Area
+Lot size in square feet
+
+Overall Qual
+Rates the overall material and finish of the house (1-10, Very Poor to Very Excellent)
+
+Overall Cond
+Rates the overall condition of the house (1-10, Very Poor to Very Excellent)
+
+Year Built
+Original construction date
+
+Year Remod/Add
+Remodel date (same as construction date if no remodeling or additions)
+
+Mas Vnr Area
+Masonry veneer area in square feet
+
+BsmtFin SF 1
+Type 1 finished square feet
+
+Bsmt Unf SF
+Unfinished square feet of basement area
+
+Total Bsmt SF
+Total square feet of basement area
+
+1st Flr SF
+First Floor square feet
+
+2nd Flr SF
+Second floor square feet
+
+Gr Liv Area
+Above grade (ground) living area square feet
+
+Bsmt Full Bath
+Basement full bathrooms
+
+Full Bath
+Full bathrooms above grade
+
+Half Bath
+Half baths above grade
+
+Bedroom AbvGr
+Bedrooms above grade (does NOT include basement bedrooms)
+
+Fireplaces
+Number of fireplaces
+
+Garage Area
+Size of garage in square feet
+
+Wood Deck SF
+Wood deck area in square feet
+
+Open Porch SF
+Open porch area in square feet
+
+Mo Sold
+Month Sold (MM)
+
+Yr Sold
+Year Sold (YYYY)
