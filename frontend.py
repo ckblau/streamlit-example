@@ -56,7 +56,7 @@ def load_model():
 def submit_result():
     print(num_input)
     print(norm_input)
-    total_input = {**num_input, **norm_input}
+    total_input = num_input | norm_input
     st.write(total_input)
 
 
