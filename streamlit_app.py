@@ -1,38 +1,77 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
-
-"""
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+import pandas as pd
+import numpy as np
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+num_attr = []
+norm_attr = []
+num_input = dict()
+norm_input = dict()
 
-    Point = namedtuple('Point', 'x y')
-    data = []
 
-    points_per_turn = total_points / num_turns
+def parse_attr(text, norm=False):
+    lines = text.split("\n")
+    attr = []
+    cur = []
+    for line in lines:
+        if line == "":
+            attr += [cur]
+            cur = []
+        else:
+            if norm:
+                cur += [line.split("#")]
+            else:
+                cur += [line]
+    return attr
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+def load_model():
+    global num_attr, norm_attr, num_input, norm_input
+
+    f = open("num.txt", "r")
+    num_attr = parse_attr(f.read())
+    f = open("norm.txt", "r")
+    norm_attr = parse_attr(f.read(), norm=True)
+    # num_attr_size = len(num_attr)
+    # norm_attr_size = len(norm_attr)
+
+    for i, attr in enumerate(num_attr):
+        a_label = num_attr[i][0]
+        a_help = num_attr[i][1]
+        a_key = "num_attr_{}".format(i)
+        cur = st.number_input(a_label, help=a_help, key=a_key, value=-1)
+        num_input[a_label] = cur
+
+    for i, attr in enumerate(norm_attr):
+        a_label = norm_attr[i][0][0]
+        a_help = norm_attr[i][1][0]
+        a_key = "norm_attr_{}".format(i)
+        a_options = [""] + [e[1] for e in norm_attr[i][2:]]
+        cur = st.selectbox(a_label, help=a_help, options=a_options, index=0, key=a_key)
+        cur_real = [e[0] for e in norm_attr[i][2:] if cur == e[1]]
+        if cur_real:
+            norm_input[a_label] = cur_real[0]
+
+
+def submit_result():
+    print(num_input)
+    print(norm_input)
+    total_input = num_input | norm_input
+    st.write(total_input)
+
+
+def main():
+    st.title("House Price Prediction")
+    load_state = st.text("Loading model...")
+    load_model()
+    load_state.text("Waiting for input...")
+    submit_state = st.text("")
+    if st.button("Submit"):
+        submit_state.text("Submitted!")
+        submit_result()
+    else:
+        submit_state.text("Press button to submit...")
+
+
+if __name__ == '__main__':
+    main()
