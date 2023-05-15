@@ -92,7 +92,7 @@ Duplx#Duplex
 TwnhsE#Townhouse End Unit
 TwnhsI#Townhouse Inside Unit
 
-House Style (Nominal)
+House Style
 Style of dwelling
 1Story#One story
 1.5Fin#One and one-half story: 2nd level finished

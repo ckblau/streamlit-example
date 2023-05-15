@@ -1,7 +1,6 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 
+from user import use_model
 
 num_attr = []
 norm_attr = []
@@ -57,7 +56,11 @@ def submit_result():
     print(num_input)
     print(norm_input)
     total_input = num_input | norm_input
+    if not "MS SubClass" in total_input:
+        total_input["MS SubClass"] = -1
     st.write(total_input)
+    pred = use_model(total_input)
+    st.write(pred)
 
 
 def main():
