@@ -56,11 +56,12 @@ def submit_result():
     print(num_input)
     print(norm_input)
     total_input = num_input | norm_input
-    if not "MS SubClass" in total_input:
+    if "MS SubClass" not in total_input:
         total_input["MS SubClass"] = -1
-    st.write(total_input)
+    # st.write(total_input)
     pred = use_model(total_input)
-    st.write(pred)
+    # st.write(pred)
+    return pred
 
 
 def main():
@@ -71,7 +72,8 @@ def main():
     submit_state = st.text("")
     if st.button("Submit"):
         submit_state.text("Submitted!")
-        submit_result()
+        pred = submit_result()
+        st.text("Price predicted: ${}".format(pred[0]))
     else:
         submit_state.text("Press button to submit...")
 
